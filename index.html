@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Gastos</title>
+  <meta charset="UTF-8">
+  <title>Formulário de Investimentos</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+    form { background: #fff; padding: 20px; border-radius: 5px; max-width: 400px; margin: auto; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+  </style>
 </head>
 <body>
-    
-    
+  <h2>Cadastro de Investimento</h2>
+  <form id="form">
+    <input type="text" name="nome" placeholder="Seu nome" required>
+    <input type="email" name="email" placeholder="Seu email" required>
+    <input type="text" name="investimento" placeholder="Tipo de investimento" required>
+    <input type="number" name="valor" placeholder="Valor investido" required>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        nome: form.nome.value,
+        email: form.email.value,
+        investimento: form.investimento.value,
+        valor: form.valor.value
+      };
+
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwjMMaxIcCVtxJKx5htQWT60u4PZ0iA7JfX-sqSoGqBNbY7ZfF-nxijD9H6JznTNPf6DA/exec', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        alert('Dados enviados com sucesso!');
+        form.reset();
+      } else {
+        alert('Erro ao enviar dados.');
+      }
+    });
+  </script>
 </body>
 </html>
